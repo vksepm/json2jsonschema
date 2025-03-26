@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let darkMode = false;
 
     // 添加鍵盤事件監聽器 - 當按下 Ctrl+Enter 時執行轉換
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         // 檢查是否按下 Ctrl+Enter (Windows) 或 Command+Enter (Mac)
         if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
             // 防止預設行為 (如在某些編輯器中會換行)
@@ -423,7 +423,16 @@ document.addEventListener('DOMContentLoaded', function () {
         insertPlainText(text);
 
         // 驗證輸入
-        setTimeout(validateInput, 0);
+        setTimeout(() => {
+            // 驗證輸入
+            if (validateInput()) {
+                // 在驗證成功後自動轉換 JSON 到 JSON Schema
+                convertJsonToSchema();
+                createFireworks();
+                showCelebrationMessage();
+                showNotification(`已成功載入並轉換檔案：${file.name}`);
+            }
+        }, 0);
     });
 
     // 複製結果
@@ -684,4 +693,7 @@ document.addEventListener('DOMContentLoaded', function () {
             schemaOutput.classList.remove('fade-in');
         }, 500);
     }
+
+    insertPlainText('{"name": "John", "age": 30, "city": "New York"}');
+
 });
