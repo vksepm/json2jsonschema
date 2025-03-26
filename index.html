@@ -15,7 +15,7 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center mb-4 md:mb-0">
                     <i class="fas fa-code text-3xl mr-3"></i>
-                    <h1 class="text-2xl md:text-3xl font-bold">JSON 轉 JSON Schema</h1>
+                    <h1 class="text-2xl md:text-3xl font-bold">JSON 轉換 JSON Schema 工具</h1>
                 </div>
                 <div class="flex space-x-4">
                     <button id="theme-toggle" class="bg-white bg-opacity-20 hover:bg-opacity-30 transition-all-custom rounded-full p-2">
@@ -35,7 +35,7 @@
                 <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">轉換你的 JSON 到 JSON Schema</h2>
                 <p class="text-gray-600 mb-6">只需貼上你的 JSON 資料，我們將自動為你生成對應的 JSON Schema。</p>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 relative">
                     <div class="relative">
                         <div class="flex justify-between items-center mb-2">
                             <label for="json-input" class="text-gray-700 font-medium">輸入 JSON</label>
@@ -63,6 +63,13 @@
                         <div id="input-status" class="mt-2 text-sm"></div>
                     </div>
 
+                    <!-- 轉換按鈕放置在兩個輸入框中間 -->
+                    <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 hidden lg:block">
+                        <button id="convert-button" class="gradient-bg text-white font-medium py-3 px-3 rounded-full shadow-md hover:shadow-lg transform transition-all-custom hover:-translate-y-1 flex items-center pulse-animation">
+                            <i class="fas fa-arrow-right text-xl"></i>
+                        </button>
+                    </div>
+
                     <div class="relative">
                         <div class="flex justify-between items-center mb-2">
                             <label for="schema-output" class="text-gray-700 font-medium">產生的 JSON Schema</label>
@@ -80,8 +87,9 @@
                 </div>
             </div>
 
-            <div id="convert-action" class="flex justify-center p-4 bg-gray-50 border-t border-gray-200">
-                <button id="convert-button" class="gradient-bg text-white font-medium py-2 px-6 rounded-full shadow-md hover:shadow-lg transform transition-all-custom hover:-translate-y-1 flex items-center pulse-animation">
+            <!-- 顯示在移動裝置上的轉換按鈕 -->
+            <div id="convert-action" class="flex justify-center p-4 bg-gray-50 border-t border-gray-200 lg:hidden">
+                <button id="convert-button-mobile" class="gradient-bg text-white font-medium py-2 px-6 rounded-full shadow-md hover:shadow-lg transform transition-all-custom hover:-translate-y-1 flex items-center pulse-animation">
                     <i class="fas fa-magic mr-2"></i>轉換
                 </button>
             </div>
@@ -110,7 +118,7 @@
                     <div class="rounded-full bg-green-500 text-white p-3 mb-3">
                         <i class="fas fa-check-circle text-xl"></i>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">快速導出</h3>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">快速匯出</h3>
                     <p class="text-gray-600">一鍵複製或下載生成的 JSON Schema 以供後續使用。</p>
                 </div>
 

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const dragOverlay = document.getElementById('drag-overlay');
     const schemaOutput = document.getElementById('schema-output');
     const convertButton = document.getElementById('convert-button');
+    const convertButtonMobile = document.getElementById('convert-button-mobile');
     const copyButton = document.getElementById('copy-button');
     const downloadButton = document.getElementById('download-button');
     const clearInputButton = document.getElementById('clear-input-button');
@@ -224,6 +225,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 轉換 JSON 到 JSON Schema
     convertButton.addEventListener('click', () => {
+        if (!validateInput()) {
+            showNotification('請先輸入有效的 JSON', 'error');
+            return;
+        }
+
+        convertJsonToSchema();
+        showNotification('成功生成 JSON Schema！');
+    });
+
+    // 為移動版轉換按鈕添加事件監聽
+    convertButtonMobile.addEventListener('click', () => {
         if (!validateInput()) {
             showNotification('請先輸入有效的 JSON', 'error');
             return;
