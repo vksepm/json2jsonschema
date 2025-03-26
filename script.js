@@ -16,7 +16,92 @@ document.addEventListener('DOMContentLoaded', function () {
     const notificationMessage = document.getElementById('notification-message');
     const convertAction = document.getElementById('convert-action');
 
+    // 初始化深色模式變數
     let darkMode = false;
+
+    // 套用主題功能
+    function applyTheme(isDark) {
+        darkMode = isDark;
+
+        // 更新圖示
+        const icon = themeToggle.querySelector('i');
+        if (isDark) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+
+        // 更新 body 背景
+        document.body.classList.toggle('bg-gray-900', isDark);
+        document.body.classList.toggle('bg-slate-100', !isDark);
+
+        // 更新卡片
+        const cards = document.querySelectorAll('.bg-white, .bg-gray-800');
+        cards.forEach(card => {
+            card.classList.toggle('bg-gray-800', isDark);
+            card.classList.toggle('bg-white', !isDark);
+            card.classList.toggle('text-white', isDark);
+        });
+
+        // 更新標題
+        const headings = document.querySelectorAll('h2, h3, label');
+        headings.forEach(heading => {
+            heading.classList.toggle('text-white', isDark);
+            heading.classList.toggle('text-gray-800', !isDark);
+        });
+
+        // 更新編輯器
+        const editors = document.querySelectorAll('.editor');
+        editors.forEach(editor => {
+            editor.classList.toggle('bg-gray-700', isDark);
+            editor.classList.toggle('bg-gray-50', !isDark);
+            editor.classList.toggle('text-white', isDark);
+            editor.classList.toggle('text-gray-800', !isDark);
+            editor.classList.toggle('border-gray-600', isDark);
+            editor.classList.toggle('border-gray-300', !isDark);
+        });
+
+        // 更新轉換動作背景
+        if (convertAction) {
+            convertAction.classList.toggle('bg-gray-700', isDark);
+            convertAction.classList.toggle('bg-gray-50', !isDark);
+            convertAction.classList.toggle('border-gray-600', isDark);
+            convertAction.classList.toggle('border-gray-200', !isDark);
+        }
+
+        // 儲存設定到 localStorage
+        localStorage.setItem('darkMode', isDark ? 'true' : 'false');
+    }
+
+    // 初始化主題設定
+    function initTheme() {
+        // 檢查 localStorage 中的設定
+        const savedTheme = localStorage.getItem('darkMode');
+
+        if (savedTheme !== null) {
+            // 使用已儲存的設定
+            applyTheme(savedTheme === 'true');
+        } else {
+            // 檢查使用者系統偏好
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            applyTheme(prefersDarkScheme.matches);
+
+            // 監聽系統主題變更
+            prefersDarkScheme.addEventListener('change', (e) => {
+                applyTheme(e.matches);
+            });
+        }
+    }
+
+    // 初始化主題
+    initTheme();
+
+    // 切換暗黑模式
+    themeToggle.addEventListener('click', () => {
+        applyTheme(!darkMode);
+    });
 
     // 顯示通知
     function showNotification(message, type = 'success') {
@@ -37,48 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
             notification.classList.add('hidden');
         }, 3000);
     }
-
-    // 切換暗黑模式
-    themeToggle.addEventListener('click', () => {
-        darkMode = !darkMode;
-        document.body.classList.toggle('bg-gray-900', darkMode);
-        document.body.classList.toggle('bg-slate-100', !darkMode);
-
-        const cards = document.querySelectorAll('.bg-white, .bg-gray-800');
-        cards.forEach(card => {
-            card.classList.toggle('bg-gray-800', darkMode);
-            card.classList.toggle('bg-white', !darkMode);
-            card.classList.toggle('text-white', darkMode);
-        });
-
-        const headings = document.querySelectorAll('h2, h3, label');
-        headings.forEach(heading => {
-            heading.classList.toggle('text-white', darkMode);
-            heading.classList.toggle('text-gray-800', !darkMode);
-        });
-
-        const editors = document.querySelectorAll('.editor');
-        editors.forEach(editor => {
-            editor.classList.toggle('bg-gray-700', darkMode);
-            editor.classList.toggle('bg-gray-50', !darkMode);
-            editor.classList.toggle('text-white', darkMode);
-            editor.classList.toggle('text-gray-800', !darkMode);
-            editor.classList.toggle('border-gray-600', darkMode);
-            editor.classList.toggle('border-gray-300', !darkMode);
-        });
-
-        // 更新轉換動作背景
-        if (convertAction) {
-            convertAction.classList.toggle('bg-gray-700', darkMode);
-            convertAction.classList.toggle('bg-gray-50', !darkMode);
-            convertAction.classList.toggle('border-gray-600', darkMode);
-            convertAction.classList.toggle('border-gray-200', !darkMode);
-        }
-
-        const icon = themeToggle.querySelector('i');
-        icon.classList.toggle('fa-moon');
-        icon.classList.toggle('fa-sun');
-    });
 
     // 貼上功能
     pasteButton.addEventListener('click', async () => {
