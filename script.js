@@ -450,12 +450,30 @@ document.addEventListener('DOMContentLoaded', function () {
                         required: []
                     };
 
-                    // 收集第一個物件的所有屬性作為基準
-                    const firstItem = json[0];
-                    Object.keys(firstItem).forEach(key => {
-                        schema.items.properties[key] = getPropertySchema(firstItem[key]);
-                        schema.items.required.push(key);
-                    });
+                    // 收集所有非 null 物件的屬性
+                    const allProperties = new Set();
+                    const validObjects = json.filter(item => item !== null && typeof item === 'object');
+
+                    if (validObjects.length > 0) {
+                        // 先收集所有屬性
+                        validObjects.forEach(item => {
+                            Object.keys(item).forEach(key => {
+                                if (item[key] !== null) {
+                                    allProperties.add(key);
+                                }
+                            });
+                        });
+
+                        // 然後為每個屬性建立 schema
+                        allProperties.forEach(key => {
+                            // 找到第一個包含此屬性且非 null 的值
+                            const validItem = validObjects.find(item => item[key] !== null);
+                            if (validItem) {
+                                schema.items.properties[key] = getPropertySchema(validItem[key]);
+                                schema.items.required.push(key);
+                            }
+                        });
+                    }
                 } else {
                     // 對於其他類型的陣列
                     schema.items = {
