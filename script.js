@@ -694,6 +694,238 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 500);
     }
 
-    insertPlainText('{"name": "John", "age": 30, "city": "New York"}');
+    // 定義多個 JSON 範例
+    const jsonExamples = [
+        // 範例 1: 使用者個人資料
+        {
+            id: "usr12345",
+            firstName: "John",
+            lastName: "Smith",
+            email: "john.smith@example.com",
+            age: 28,
+            address: {
+                street: "123 Main Street",
+                city: "New York",
+                state: "NY",
+                zipCode: "10001",
+                country: "USA"
+            },
+            phoneNumbers: [
+                {
+                    type: "home",
+                    number: "212-555-1234"
+                },
+                {
+                    type: "work",
+                    number: "646-555-5678"
+                }
+            ],
+            isActive: true,
+            registrationDate: "2023-04-15T10:30:00Z"
+        },
+        // 範例 2: 產品目錄項目
+        {
+            productId: "prod-8793",
+            name: "Wireless Bluetooth Headphones",
+            description: "Premium noise-cancelling headphones with 30-hour battery life",
+            price: 149.99,
+            currency: "USD",
+            category: "Electronics",
+            tags: ["audio", "wireless", "bluetooth", "headphones"],
+            specifications: {
+                brand: "SoundMaster",
+                model: "HD-2000",
+                color: "Black",
+                weight: "250g",
+                dimensions: {
+                    height: "18cm",
+                    width: "15cm",
+                    depth: "8cm"
+                },
+                batteryLife: "30 hours"
+            },
+            inStock: true,
+            availableColors: ["black", "silver", "blue"],
+            ratings: {
+                average: 4.7,
+                count: 253
+            }
+        },
+        // 範例 3: 部落格文章
+        {
+            postId: "article-4567",
+            title: "10 Tips for Effective Time Management",
+            slug: "10-tips-effective-time-management",
+            author: {
+                id: "auth-789",
+                name: "Emma Wilson",
+                bio: "Productivity expert and bestselling author",
+                avatar: "https://example.com/avatars/emma-wilson.jpg"
+            },
+            publishDate: "2024-02-18T09:15:30Z",
+            lastModified: "2024-02-20T14:22:10Z",
+            content: "Time management is essential for achieving your goals...",
+            excerpt: "Learn how to maximize your productivity with these proven time management strategies.",
+            categories: ["Productivity", "Self-improvement"],
+            tags: ["time management", "productivity", "planning", "habits"],
+            featuredImage: "https://example.com/images/time-management.jpg",
+            status: "published",
+            comments: [
+                {
+                    id: "comment-123",
+                    author: "David Chen",
+                    content: "Great article! I especially liked the point about setting priorities.",
+                    date: "2024-02-19T10:45:12Z"
+                }
+            ],
+            viewCount: 1243,
+            likeCount: 87
+        },
+        // 範例 4: 食譜資訊
+        {
+            recipeId: "recipe-567",
+            title: "Classic Chocolate Chip Cookies",
+            difficulty: "easy",
+            prepTime: 15,
+            cookTime: 12,
+            totalTime: 27,
+            servings: 24,
+            ingredients: [
+                {
+                    name: "all-purpose flour",
+                    amount: 2.25,
+                    unit: "cups"
+                },
+                {
+                    name: "butter",
+                    amount: 1,
+                    unit: "cup"
+                },
+                {
+                    name: "granulated sugar",
+                    amount: 0.75,
+                    unit: "cup"
+                },
+                {
+                    name: "brown sugar",
+                    amount: 0.75,
+                    unit: "cup"
+                },
+                {
+                    name: "large eggs",
+                    amount: 2,
+                    unit: "count"
+                },
+                {
+                    name: "vanilla extract",
+                    amount: 1,
+                    unit: "teaspoon"
+                },
+                {
+                    name: "chocolate chips",
+                    amount: 2,
+                    unit: "cups"
+                }
+            ],
+            instructions: [
+                "Preheat oven to 375°F (190°C).",
+                "Combine flour, baking soda, and salt in a small bowl.",
+                "Beat butter, granulated sugar, and brown sugar in a large mixing bowl.",
+                "Add eggs one at a time, then stir in vanilla.",
+                "Gradually beat in flour mixture.",
+                "Stir in chocolate chips.",
+                "Drop by rounded tablespoon onto ungreased baking sheets.",
+                "Bake for 9 to 11 minutes or until golden brown."
+            ],
+            nutritionFacts: {
+                calories: 150,
+                fat: 7,
+                carbs: 22,
+                protein: 2,
+                sugar: 15
+            },
+            tags: ["dessert", "baking", "cookies", "chocolate"]
+        },
+        // 範例 5: 天氣資料
+        {
+            location: {
+                city: "London",
+                country: "United Kingdom",
+                coordinates: {
+                    latitude: 51.5074,
+                    longitude: -0.1278
+                },
+                timezone: "Europe/London"
+            },
+            currentWeather: {
+                timestamp: "2024-03-25T14:30:00Z",
+                temperature: {
+                    current: 12.5,
+                    feelsLike: 11.2,
+                    min: 8.3,
+                    max: 14.1,
+                    unit: "celsius"
+                },
+                humidity: 65,
+                windSpeed: 18.5,
+                windDirection: "SW",
+                pressure: 1012,
+                visibility: 9.7,
+                uvIndex: 3,
+                condition: {
+                    main: "Cloudy",
+                    description: "Partly cloudy with occasional showers",
+                    icon: "cloud-rain"
+                },
+                precipitation: {
+                    probability: 40,
+                    intensity: "light"
+                }
+            },
+            forecast: [
+                {
+                    date: "2024-03-26",
+                    sunrise: "05:48:00",
+                    sunset: "18:32:00",
+                    temperature: {
+                        min: 7.2,
+                        max: 13.8,
+                        unit: "celsius"
+                    },
+                    condition: "Sunny"
+                },
+                {
+                    date: "2024-03-27",
+                    sunrise: "05:46:00",
+                    sunset: "18:34:00",
+                    temperature: {
+                        min: 6.5,
+                        max: 12.1,
+                        unit: "celsius"
+                    },
+                    condition: "Rainy"
+                }
+            ],
+            alerts: [
+                {
+                    type: "Wind Advisory",
+                    severity: "moderate",
+                    description: "Strong winds expected between 14:00 and 20:00",
+                    issuedAt: "2024-03-25T08:00:00Z",
+                    expiresAt: "2024-03-25T21:00:00Z"
+                }
+            ]
+        }
+    ];
 
+    // 從範例陣列中隨機選擇一個 JSON 範例並插入到編輯器中
+    function insertRandomJsonExample() {
+        const randomIndex = Math.floor(Math.random() * jsonExamples.length);
+        const randomExample = jsonExamples[randomIndex];
+        const formattedJson = JSON.stringify(randomExample, null, 2);
+        insertPlainText(formattedJson);
+    }
+
+    // 初始化時插入隨機範例，而不是固定的簡單範例
+    insertRandomJsonExample();
 });
