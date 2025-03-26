@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const themeToggle = document.getElementById('theme-toggle');
     const notification = document.getElementById('notification');
     const notificationMessage = document.getElementById('notification-message');
+    const convertAction = document.getElementById('convert-action');
 
     let darkMode = false;
 
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.toggle('bg-gray-900', darkMode);
         document.body.classList.toggle('bg-slate-100', !darkMode);
 
-        const cards = document.querySelectorAll('.bg-white');
+        const cards = document.querySelectorAll('.bg-white, .bg-gray-800');
         cards.forEach(card => {
             card.classList.toggle('bg-gray-800', darkMode);
             card.classList.toggle('bg-white', !darkMode);
@@ -65,6 +66,14 @@ document.addEventListener('DOMContentLoaded', function () {
             editor.classList.toggle('border-gray-600', darkMode);
             editor.classList.toggle('border-gray-300', !darkMode);
         });
+
+        // 更新轉換動作背景
+        if (convertAction) {
+            convertAction.classList.toggle('bg-gray-700', darkMode);
+            convertAction.classList.toggle('bg-gray-50', !darkMode);
+            convertAction.classList.toggle('border-gray-600', darkMode);
+            convertAction.classList.toggle('border-gray-200', !darkMode);
+        }
 
         const icon = themeToggle.querySelector('i');
         icon.classList.toggle('fa-moon');
