@@ -1,0 +1,78 @@
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+}
+
+.editor {
+    min-height: 300px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.editor:focus {
+    outline: none;
+}
+
+@keyframes pulse-scale {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.pulse-animation {
+    animation: pulse-scale 2s infinite;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* 模擬編輯器的語法高亮 */
+.json-string { color: #22c55e; }
+.json-number { color: #3b82f6; }
+.json-boolean { color: #8b5cf6; }
+.json-null { color: #ef4444; }
+.json-key { color: #f59e0b; }
+
+/* 自定義滾動條 */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+.transition-all-custom {
+    transition: all 0.3s ease-in-out;
+}
+
+/* 拖曳上傳區域樣式 */
+.drag-active {
+    background-color: rgba(59, 130, 246, 0.1);
+    border: 2px dashed #3b82f6 !important;
+}
