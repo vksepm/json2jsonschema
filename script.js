@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // 更新標題
-        const headings = document.querySelectorAll('h2, h3, label');
+        const headings = document.querySelectorAll('h2, label');
         headings.forEach(heading => {
             heading.classList.toggle('text-white', isDark);
             heading.classList.toggle('text-gray-800', !isDark);
