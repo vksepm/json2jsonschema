@@ -16,6 +16,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const notificationMessage = document.getElementById('notification-message');
     const convertAction = document.getElementById('convert-action');
 
+    // 慶祝訊息列表
+    const celebrationMessages = [
+        { emoji: "🎉", message: "太棒了！完美轉換！" },
+        { emoji: "✨", message: "哇！轉換成功！" },
+        { emoji: "🚀", message: "Schema 生成完成！" },
+        { emoji: "💯", message: "轉換完美成功！" },
+        { emoji: "🏆", message: "你的 Schema 準備好了！" },
+        { emoji: "🥳", message: "完美！Schema 已就緒！" },
+        { emoji: "💪", message: "強大的轉換，完美結果！" },
+        { emoji: "🌟", message: "閃亮的 Schema 誕生了！" }
+    ];
+
     // 初始化深色模式變數
     let darkMode = false;
 
@@ -30,7 +42,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (validateInput()) {
                 // 執行轉換
                 convertJsonToSchema();
-                showNotification('成功生成 JSON Schema！');
+                createFireworks();
+                showCelebrationMessage();
             } else {
                 showNotification('請先輸入有效的 JSON', 'error');
             }
@@ -121,6 +134,83 @@ document.addEventListener('DOMContentLoaded', function () {
         applyTheme(!darkMode);
     });
 
+    // 新增建立煙火效果的函數
+    function createFireworks() {
+        const colors = [
+            '#FF5252', '#FF4081', '#E040FB', '#7C4DFF',
+            '#536DFE', '#448AFF', '#40C4FF', '#18FFFF',
+            '#64FFDA', '#69F0AE', '#B2FF59', '#EEFF41',
+            '#FFFF00', '#FFD740', '#FFAB40', '#FF6E40'
+        ];
+
+        // 依據螢幕大小建立煙火數量
+        const fireworksCount = window.innerWidth < 768 ? 3 : 5;
+
+        for (let i = 0; i < fireworksCount; i++) {
+            createSingleFirework(colors);
+        }
+    }
+
+    function createSingleFirework(colors) {
+        // 建立煙火容器
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        document.body.appendChild(firework);
+
+        // 隨機定位煙火在視窗內
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * (window.innerHeight * 0.6);  // 主要在上部 60% 的區域
+        firework.style.left = `${x}px`;
+        firework.style.top = `${y}px`;
+
+        // 建立煙火粒子
+        const particleCount = Math.floor(Math.random() * 20) + 30; // 30-50 粒子
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'firework-particle';
+
+            // 隨機色彩
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.background = color;
+
+            // 隨機移動方向和距離
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 100 + 50;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance;
+
+            particle.style.setProperty('--tx', `${tx}px`);
+            particle.style.setProperty('--ty', `${ty}px`);
+
+            firework.appendChild(particle);
+        }
+
+        // 煙火完成後移除元素
+        setTimeout(() => {
+            document.body.removeChild(firework);
+        }, 1500);
+    }
+
+    // 顯示慶祝訊息
+    function showCelebrationMessage() {
+        // 從訊息列表中隨機選一個
+        const celebration = celebrationMessages[Math.floor(Math.random() * celebrationMessages.length)];
+
+        // 建立慶祝訊息元素
+        const messageEl = document.createElement('div');
+        messageEl.className = 'celebration-message';
+        messageEl.innerHTML = `<span class="celebration-emoji">${celebration.emoji}</span>${celebration.message}`;
+
+        // 新增至頁面
+        document.body.appendChild(messageEl);
+
+        // 設定移除計時器
+        setTimeout(() => {
+            document.body.removeChild(messageEl);
+        }, 3000);
+    }
+
     // 顯示通知
     function showNotification(message, type = 'success') {
         notificationMessage.textContent = message;
@@ -150,6 +240,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (validateInput()) {
                 // 在驗證成功後自動轉換 JSON 到 JSON Schema
                 convertJsonToSchema();
+                createFireworks();
+                showCelebrationMessage();
                 showNotification(`已成功貼上並轉換格式`);
             }
         } catch (err) {
@@ -301,6 +393,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         convertJsonToSchema();
+        createFireworks();
+        showCelebrationMessage();
         showNotification('成功生成 JSON Schema！');
     });
 
@@ -312,6 +406,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         convertJsonToSchema();
+        createFireworks();
+        showCelebrationMessage();
         showNotification('成功生成 JSON Schema！');
     });
 
@@ -413,6 +509,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (validateInput()) {
                             // 在驗證成功後自動轉換 JSON 到 JSON Schema
                             convertJsonToSchema();
+                            createFireworks();
+                            showCelebrationMessage();
                             showNotification(`已成功載入並轉換檔案：${file.name}`);
                         } else {
                             showNotification(`已成功載入檔案：${file.name}`);
