@@ -19,6 +19,24 @@ document.addEventListener('DOMContentLoaded', function () {
     // 初始化深色模式變數
     let darkMode = false;
 
+    // 添加鍵盤事件監聽器 - 當按下 Ctrl+Enter 時執行轉換
+    document.addEventListener('keydown', function(e) {
+        // 檢查是否按下 Ctrl+Enter (Windows) 或 Command+Enter (Mac)
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            // 防止預設行為 (如在某些編輯器中會換行)
+            e.preventDefault();
+
+            // 檢查輸入是否有效
+            if (validateInput()) {
+                // 執行轉換
+                convertJsonToSchema();
+                showNotification('成功生成 JSON Schema！');
+            } else {
+                showNotification('請先輸入有效的 JSON', 'error');
+            }
+        }
+    });
+
     // 套用主題功能
     function applyTheme(isDark) {
         darkMode = isDark;
