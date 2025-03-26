@@ -8,8 +8,11 @@ body {
 
 .editor {
     min-height: 300px;
-    max-height: 400px;
+    max-height: 300px;
     overflow-y: auto;
+    /* disable scrollbar */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: transparent transparent; /* Firefox */
 }
 
 .editor:focus {
