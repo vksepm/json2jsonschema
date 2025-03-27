@@ -20,12 +20,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const celebrationMessages = [
         { emoji: "🎉", message: "太棒了！完美轉換！" },
         { emoji: "✨", message: "哇！轉換成功！" },
-        { emoji: "🚀", message: "Schema 生成完成！" },
+        { emoji: "🚀", message: "JSON Schema 產生完畢！" },
         { emoji: "💯", message: "轉換完美成功！" },
-        { emoji: "🏆", message: "你的 Schema 準備好了！" },
-        { emoji: "🥳", message: "完美！Schema 已就緒！" },
+        { emoji: "🏆", message: "你的 JSON Schema 準備好了！" },
+        { emoji: "🥳", message: "完美！JSON Schema 已就緒！" },
         { emoji: "💪", message: "強大的轉換，完美結果！" },
-        { emoji: "🌟", message: "閃亮的 Schema 誕生了！" }
+        { emoji: "🌟", message: "閃亮的 JSON Schema 誕生了！" },
+        { emoji: "🔥", message: "JSON Schema 熱騰騰出爐！" },
+        { emoji: "👍", message: "完美轉換，就是這麼簡單！" },
+        { emoji: "🎯", message: "準確命中！JSON Schema 產生成功！" },
+        { emoji: "⚡", message: "閃電般的轉換速度！" },
+        { emoji: "🧙‍♂️", message: "轉換 JSON Schema 魔法完成！" },
+        { emoji: "🌈", message: "漂亮的 JSON Schema 已準備就緒！" },
+        { emoji: "🤩", message: "令人驚嘆的轉換結果！" },
+        { emoji: "🎁", message: "給你的禮物：完美的 JSON Schema！" },
+        { emoji: "🌞", message: "光明的 JSON Schema 前景！" }
     ];
 
     // 初始化深色模式變數
@@ -242,7 +251,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 convertJsonToSchema();
                 createFireworks();
                 showCelebrationMessage();
-                showNotification(`已成功貼上並轉換格式`);
             }
         } catch (err) {
             console.error('Failed to read clipboard contents: ', err);
@@ -395,7 +403,6 @@ document.addEventListener('DOMContentLoaded', function () {
         convertJsonToSchema();
         createFireworks();
         showCelebrationMessage();
-        showNotification('成功生成 JSON Schema！');
     });
 
     // 為移動版轉換按鈕添加事件監聽
@@ -408,7 +415,6 @@ document.addEventListener('DOMContentLoaded', function () {
         convertJsonToSchema();
         createFireworks();
         showCelebrationMessage();
-        showNotification('成功生成 JSON Schema！');
     });
 
     // 監聽貼上事件
@@ -430,7 +436,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 convertJsonToSchema();
                 createFireworks();
                 showCelebrationMessage();
-                showNotification(`已成功載入並轉換檔案：${file.name}`);
             }
         }, 0);
     });
@@ -520,7 +525,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             convertJsonToSchema();
                             createFireworks();
                             showCelebrationMessage();
-                            showNotification(`已成功載入並轉換檔案：${file.name}`);
                         } else {
                             showNotification(`已成功載入檔案：${file.name}`);
                         }
