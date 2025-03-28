@@ -16,54 +16,54 @@ document.addEventListener('DOMContentLoaded', function () {
     const notificationMessage = document.getElementById('notification-message');
     const convertAction = document.getElementById('convert-action');
 
-    // 慶祝訊息列表
+    // Celebration message list
     const celebrationMessages = [
-        { emoji: "🎉", message: "太棒了！完美轉換！" },
-        { emoji: "✨", message: "哇！轉換成功！" },
-        { emoji: "🚀", message: "JSON Schema 產生完畢！" },
-        { emoji: "💯", message: "轉換完美成功！" },
-        { emoji: "🏆", message: "你的 JSON Schema 準備好了！" },
-        { emoji: "🥳", message: "完美！JSON Schema 已就緒！" },
-        { emoji: "💪", message: "強大的轉換，完美結果！" },
-        { emoji: "🌟", message: "閃亮的 JSON Schema 誕生了！" },
-        { emoji: "🔥", message: "JSON Schema 熱騰騰出爐！" },
-        { emoji: "👍", message: "完美轉換，就是這麼簡單！" },
-        { emoji: "🎯", message: "準確命中！JSON Schema 產生成功！" },
-        { emoji: "⚡", message: "閃電般的轉換速度！" },
-        { emoji: "🧙‍♂️", message: "轉換 JSON Schema 魔法完成！" },
-        { emoji: "🌈", message: "漂亮的 JSON Schema 已準備就緒！" },
-        { emoji: "🤩", message: "令人驚嘆的轉換結果！" },
-        { emoji: "🎁", message: "給你的禮物：完美的 JSON Schema！" },
-        { emoji: "🌞", message: "光明的 JSON Schema 前景！" }
+        { emoji: "🎉", message: "Awesome! Perfect conversion!" },
+        { emoji: "✨", message: "Wow! Conversion successful!" },
+        { emoji: "🚀", message: "JSON Schema generation complete!" },
+        { emoji: "💯", message: "Perfect conversion success!" },
+        { emoji: "🏆", message: "Your JSON Schema is ready!" },
+        { emoji: "🥳", message: "Perfect! JSON Schema is ready!" },
+        { emoji: "💪", message: "Powerful conversion, perfect result!" },
+        { emoji: "🌟", message: "A shining JSON Schema is born!" },
+        { emoji: "🔥", message: "Hot JSON Schema fresh out of the oven!" },
+        { emoji: "👍", message: "Perfect conversion, it's that simple!" },
+        { emoji: "🎯", message: "Accurate hit! JSON Schema generated successfully!" },
+        { emoji: "⚡", message: "Lightning-fast conversion speed!" },
+        { emoji: "🧙‍♂️", message: "JSON Schema conversion magic complete!" },
+        { emoji: "🌈", message: "Beautiful JSON Schema is ready!" },
+        { emoji: "🤩", message: "Amazing conversion result!" },
+        { emoji: "🎁", message: "A gift for you: a perfect JSON Schema!" },
+        { emoji: "🌞", message: "Bright JSON Schema future!" }
     ];
 
-    // 初始化深色模式變數
+    // Initialize dark mode variable
     let darkMode = false;
 
-    // 添加鍵盤事件監聽器 - 當按下 Ctrl+Enter 時執行轉換
+    // Add keyboard event listener - Execute conversion when Ctrl+Enter is pressed
     document.addEventListener('keydown', function (e) {
-        // 檢查是否按下 Ctrl+Enter (Windows) 或 Command+Enter (Mac)
+        // Check if Ctrl+Enter (Windows) or Command+Enter (Mac) is pressed
         if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-            // 防止預設行為 (如在某些編輯器中會換行)
+            // Prevent default behavior (like newline in some editors)
             e.preventDefault();
 
-            // 檢查輸入是否有效
+            // Check if input is valid
             if (validateInput()) {
-                // 執行轉換
+                // Execute conversion
                 convertJsonToSchema();
                 createFireworks();
                 showCelebrationMessage();
             } else {
-                showNotification('請先輸入有效的 JSON', 'error');
+                showNotification('Please enter valid JSON first', 'error');
             }
         }
     });
 
-    // 套用主題功能
+    // Apply theme functionality
     function applyTheme(isDark) {
         darkMode = isDark;
 
-        // 更新圖示
+        // Update icon
         const icon = themeToggle.querySelector('i');
         if (isDark) {
             icon.classList.remove('fa-moon');
@@ -73,11 +73,11 @@ document.addEventListener('DOMContentLoaded', function () {
             icon.classList.add('fa-moon');
         }
 
-        // 更新 body 背景
+        // Update body background
         document.body.classList.toggle('bg-gray-900', isDark);
         document.body.classList.toggle('bg-slate-100', !isDark);
 
-        // 更新卡片
+        // Update cards
         const cards = document.querySelectorAll('.bg-white, .bg-gray-800');
         cards.forEach(card => {
             card.classList.toggle('bg-gray-800', isDark);
@@ -85,14 +85,14 @@ document.addEventListener('DOMContentLoaded', function () {
             card.classList.toggle('text-white', isDark);
         });
 
-        // 更新標題
+        // Update headings
         const headings = document.querySelectorAll('h2, label');
         headings.forEach(heading => {
             heading.classList.toggle('text-white', isDark);
             heading.classList.toggle('text-gray-800', !isDark);
         });
 
-        // 更新編輯器
+        // Update editors
         const editors = document.querySelectorAll('.editor');
         editors.forEach(editor => {
             editor.classList.toggle('bg-gray-700', isDark);
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
             editor.classList.toggle('border-gray-300', !isDark);
         });
 
-        // 更新轉換動作背景
+        // Update convert action background
         if (convertAction) {
             convertAction.classList.toggle('bg-gray-700', isDark);
             convertAction.classList.toggle('bg-gray-50', !isDark);
@@ -111,39 +111,39 @@ document.addEventListener('DOMContentLoaded', function () {
             convertAction.classList.toggle('border-gray-200', !isDark);
         }
 
-        // 儲存設定到 localStorage
+        // Save settings to localStorage
         localStorage.setItem('darkMode', isDark ? 'true' : 'false');
     }
 
-    // 初始化主題設定
+    // Initialize theme settings
     function initTheme() {
-        // 檢查 localStorage 中的設定
+        // Check settings in localStorage
         const savedTheme = localStorage.getItem('darkMode');
 
         if (savedTheme !== null) {
-            // 使用已儲存的設定
+            // Use saved settings
             applyTheme(savedTheme === 'true');
         } else {
-            // 檢查使用者系統偏好
+            // Check user system preference
             const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
             applyTheme(prefersDarkScheme.matches);
 
-            // 監聽系統主題變更
+            // Listen for system theme changes
             prefersDarkScheme.addEventListener('change', (e) => {
                 applyTheme(e.matches);
             });
         }
     }
 
-    // 初始化主題
+    // Initialize theme
     initTheme();
 
-    // 切換暗黑模式
+    // Toggle dark mode
     themeToggle.addEventListener('click', () => {
         applyTheme(!darkMode);
     });
 
-    // 新增建立煙火效果的函數
+    // Add function to create fireworks effect
     function createFireworks() {
         const colors = [
             '#FF5252', '#FF4081', '#E040FB', '#7C4DFF',
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
             '#FFFF00', '#FFD740', '#FFAB40', '#FF6E40'
         ];
 
-        // 依據螢幕大小建立煙火數量
+        // Create fireworks count based on screen size
         const fireworksCount = window.innerWidth < 768 ? 3 : 5;
 
         for (let i = 0; i < fireworksCount; i++) {
@@ -161,29 +161,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function createSingleFirework(colors) {
-        // 建立煙火容器
+        // Create firework container
         const firework = document.createElement('div');
         firework.className = 'firework';
         document.body.appendChild(firework);
 
-        // 隨機定位煙火在視窗內
+        // Randomly position firework within window
         const x = Math.random() * window.innerWidth;
-        const y = Math.random() * (window.innerHeight * 0.6);  // 主要在上部 60% 的區域
+        const y = Math.random() * (window.innerHeight * 0.6);  // Mainly in the upper 60% area
         firework.style.left = `${x}px`;
         firework.style.top = `${y}px`;
 
-        // 建立煙火粒子
-        const particleCount = Math.floor(Math.random() * 20) + 30; // 30-50 粒子
+        // Create firework particles
+        const particleCount = Math.floor(Math.random() * 20) + 30; // 30-50 particles
 
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'firework-particle';
 
-            // 隨機色彩
+            // Random color
             const color = colors[Math.floor(Math.random() * colors.length)];
             particle.style.background = color;
 
-            // 隨機移動方向和距離
+            // Random movement direction and distance
             const angle = Math.random() * Math.PI * 2;
             const distance = Math.random() * 100 + 50;
             const tx = Math.cos(angle) * distance;
@@ -195,32 +195,32 @@ document.addEventListener('DOMContentLoaded', function () {
             firework.appendChild(particle);
         }
 
-        // 煙火完成後移除元素
+        // Remove element after firework is complete
         setTimeout(() => {
             document.body.removeChild(firework);
         }, 1500);
     }
 
-    // 顯示慶祝訊息
+    // Show celebration message
     function showCelebrationMessage() {
-        // 從訊息列表中隨機選一個
+        // Randomly select one from the message list
         const celebration = celebrationMessages[Math.floor(Math.random() * celebrationMessages.length)];
 
-        // 建立慶祝訊息元素
+        // Create celebration message element
         const messageEl = document.createElement('div');
         messageEl.className = 'celebration-message';
         messageEl.innerHTML = `<span class="celebration-emoji">${celebration.emoji}</span>${celebration.message}`;
 
-        // 新增至頁面
+        // Add to page
         document.body.appendChild(messageEl);
 
-        // 設定移除計時器
+        // Set remove timer
         setTimeout(() => {
             document.body.removeChild(messageEl);
         }, 3000);
     }
 
-    // 顯示通知
+    // Show notification
     function showNotification(message, type = 'success') {
         notificationMessage.textContent = message;
         notification.classList.remove('hidden', 'bg-gray-800', 'bg-green-600', 'bg-red-600');
@@ -240,42 +240,42 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 3000);
     }
 
-    // 貼上功能
+    // Paste functionality
     pasteButton.addEventListener('click', async () => {
         try {
             const text = await navigator.clipboard.readText();
             insertPlainText(text);
-            // 驗證輸入
+            // Validate input
             if (validateInput()) {
-                // 在驗證成功後自動轉換 JSON 到 JSON Schema
+                // Automatically convert JSON to JSON Schema after validation success
                 convertJsonToSchema();
                 createFireworks();
                 showCelebrationMessage();
             }
         } catch (err) {
             console.error('Failed to read clipboard contents: ', err);
-            showNotification('無法訪問剪貼簿，請手動貼上內容', 'error');
+            showNotification('Unable to access clipboard, please paste content manually', 'error');
         }
     });
 
-    // 純文字插入功能
+    // Insert plain text functionality
     function insertPlainText(text) {
-        // 清除現有内容
+        // Clear existing content
         jsonInput.innerHTML = '';
-        // 插入純文字
+        // Insert plain text
         const textNode = document.createTextNode(text);
         jsonInput.appendChild(textNode);
 
-        // 嘗試格式化 JSON
+        // Try formatting JSON
         formatJson();
     }
 
-    // 嘗試格式化 JSON (保留此函數作為向後兼容)
+    // Try formatting JSON (kept for backward compatibility)
     function tryFormatJson() {
         return formatJson();
     }
 
-    // 格式化 JSON 功能
+    // Format JSON functionality
     function formatJson() {
         try {
             const jsonText = jsonInput.textContent.trim();
@@ -284,26 +284,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 const formattedJson = JSON.stringify(jsonObj, null, 2);
                 jsonInput.textContent = formattedJson;
                 highlightJsonInElement(jsonInput);
-                inputStatus.innerHTML = '<span class="text-green-600"><i class="fas fa-check-circle mr-1"></i>已美化 JSON 格式</span>';
+                inputStatus.innerHTML = '<span class="text-green-600"><i class="fas fa-check-circle mr-1"></i>JSON format beautified</span>';
                 return true;
             }
             return false;
         } catch (e) {
-            inputStatus.innerHTML = `<span class="text-red-600"><i class="fas fa-exclamation-circle mr-1"></i>無效的 JSON: ${e.message}</span>`;
+            inputStatus.innerHTML = `<span class="text-red-600"><i class="fas fa-exclamation-circle mr-1"></i>Invalid JSON: ${e.message}</span>`;
             return false;
         }
     }
 
-    // 監聽輸入變化
+    // Listen for input changes
     jsonInput.addEventListener('input', validateInput);
 
-    // 驗證輸入的 JSON
+    // Validate input JSON
     function validateInput() {
         try {
             const jsonText = jsonInput.textContent.trim();
             if (jsonText) {
                 JSON.parse(jsonText);
-                inputStatus.innerHTML = '<span class="text-green-600"><i class="fas fa-check-circle mr-1"></i>有效的 JSON</span>';
+                inputStatus.innerHTML = '<span class="text-green-600"><i class="fas fa-check-circle mr-1"></i>Valid JSON</span>';
                 convertButton.classList.add('pulse-animation');
                 return true;
             } else {
@@ -312,13 +312,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 return false;
             }
         } catch (e) {
-            inputStatus.innerHTML = `<span class="text-red-600"><i class="fas fa-exclamation-circle mr-1"></i>無效的 JSON: ${e.message}</span>`;
+            inputStatus.innerHTML = `<span class="text-red-600"><i class="fas fa-exclamation-circle mr-1"></i>Invalid JSON: ${e.message}</span>`;
             convertButton.classList.remove('pulse-animation');
             return false;
         }
     }
 
-    // 在元素中高亮顯示 JSON
+    // Highlight JSON in element
     function highlightJsonInElement(element) {
         try {
             const jsonText = element.textContent;
@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             element.innerHTML = highlighted;
 
-            // 將光標移到末尾
+            // Move cursor to the end
             const range = document.createRange();
             const sel = window.getSelection();
             range.selectNodeContents(element);
@@ -354,11 +354,11 @@ document.addEventListener('DOMContentLoaded', function () {
             sel.removeAllRanges();
             sel.addRange(range);
         } catch (e) {
-            // 忽略高亮錯誤
+            // Ignore highlight error
         }
     }
 
-    // 高亮顯示 JSON
+    // Highlight JSON
     function highlightJson(json, container) {
         let highlighted = JSON.stringify(json, null, 2)
             .replace(/&/g, '&amp;')
@@ -383,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function () {
         container.innerHTML = highlighted;
     }
 
-    // 清空輸入
+    // Clear input
     clearInputButton.addEventListener('click', () => {
         jsonInput.textContent = '';
         schemaOutput.textContent = '';
@@ -393,10 +393,10 @@ document.addEventListener('DOMContentLoaded', function () {
         convertButton.classList.remove('pulse-animation');
     });
 
-    // 轉換 JSON 到 JSON Schema
+    // Convert JSON to JSON Schema
     convertButton.addEventListener('click', () => {
         if (!validateInput()) {
-            showNotification('請先輸入有效的 JSON', 'error');
+            showNotification('Please enter valid JSON first', 'error');
             return;
         }
 
@@ -405,10 +405,10 @@ document.addEventListener('DOMContentLoaded', function () {
         showCelebrationMessage();
     });
 
-    // 為移動版轉換按鈕添加事件監聽
+    // Add event listener for mobile conversion button
     convertButtonMobile.addEventListener('click', () => {
         if (!validateInput()) {
-            showNotification('請先輸入有效的 JSON', 'error');
+            showNotification('Please enter valid JSON first', 'error');
             return;
         }
 
@@ -417,22 +417,22 @@ document.addEventListener('DOMContentLoaded', function () {
         showCelebrationMessage();
     });
 
-    // 監聽貼上事件
+    // Listen for paste events
     jsonInput.addEventListener('paste', (e) => {
-        // 阻止默認貼上
+        // Prevent default paste
         e.preventDefault();
 
-        // 獲取純文字
+        // Get plain text
         const text = (e.clipboardData || window.clipboardData).getData('text');
 
-        // 插入純文字
+        // Insert plain text
         insertPlainText(text);
 
-        // 驗證輸入
+        // Validate input
         setTimeout(() => {
-            // 驗證輸入
+            // Validate input
             if (validateInput()) {
-                // 在驗證成功後自動轉換 JSON 到 JSON Schema
+                // Automatically convert JSON to JSON Schema after validation success
                 convertJsonToSchema();
                 createFireworks();
                 showCelebrationMessage();
@@ -440,19 +440,19 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 0);
     });
 
-    // 複製結果
+    // Copy result
     copyButton.addEventListener('click', () => {
         const schema = schemaOutput.textContent;
         if (!schema) return;
 
         navigator.clipboard.writeText(schema).then(() => {
-            showNotification('已複製到剪貼簿！');
+            showNotification('Copied to clipboard!');
         }).catch(err => {
-            showNotification('複製失敗：' + err, 'error');
+            showNotification('Copy failed: ' + err, 'error');
         });
     });
 
-    // 下載結果
+    // Download result
     downloadButton.addEventListener('click', () => {
         const schema = schemaOutput.textContent;
         if (!schema) return;
@@ -467,10 +467,10 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
 
-        showNotification('已開始下載！');
+        showNotification('Download started!');
     });
 
-    // 拖曳檔案功能
+    // Drag and drop functionality
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         jsonInputContainer.addEventListener(eventName, preventDefaults, false);
         document.body.addEventListener(eventName, preventDefaults, false);
@@ -481,21 +481,21 @@ document.addEventListener('DOMContentLoaded', function () {
         e.stopPropagation();
     }
 
-    // 拖曳進入
+    // Drag enter
     ['dragenter', 'dragover'].forEach(eventName => {
         jsonInputContainer.addEventListener(eventName, () => {
             dragOverlay.classList.remove('hidden');
         }, false);
     });
 
-    // 拖曳離開
+    // Drag leave
     ['dragleave', 'drop'].forEach(eventName => {
         jsonInputContainer.addEventListener(eventName, () => {
             dragOverlay.classList.add('hidden');
         }, false);
     });
 
-    // 拖曳放下
+    // Drag drop
     jsonInputContainer.addEventListener('drop', handleDrop, false);
 
     function handleDrop(e) {
@@ -505,46 +505,46 @@ document.addEventListener('DOMContentLoaded', function () {
         if (files.length) {
             const file = files[0];
 
-            // 檢查檔案類型
+            // Check file type
             if (file.type === 'application/json' || file.name.endsWith('.json')) {
                 const reader = new FileReader();
 
                 reader.onload = function (event) {
                     try {
-                        // 讀取檔案內容
+                        // Read file content
                         const fileContent = event.target.result;
 
                         // console.log('File content:', fileContent);
 
-                        // 插入純文字
+                        // Insert plain text
                         insertPlainText(fileContent);
 
-                        // 驗證輸入
+                        // Validate input
                         if (validateInput()) {
-                            // 在驗證成功後自動轉換 JSON 到 JSON Schema
+                            // Automatically convert JSON to JSON Schema after validation success
                             convertJsonToSchema();
                             createFireworks();
                             showCelebrationMessage();
                         } else {
-                            showNotification(`已成功載入檔案：${file.name}`);
+                            showNotification(`File loaded successfully: ${file.name}`);
                         }
                     } catch (error) {
-                        showNotification(`無法讀取 JSON 檔案: ${error.message}`, 'error');
+                        showNotification(`Unable to read JSON file: ${error.message}`, 'error');
                     }
                 };
 
                 reader.onerror = function () {
-                    showNotification('讀取檔案時發生錯誤', 'error');
+                    showNotification('Error occurred while reading the file', 'error');
                 };
 
                 reader.readAsText(file);
             } else {
-                showNotification('請上傳 JSON 格式的檔案', 'error');
+                showNotification('Please upload a JSON format file', 'error');
             }
         }
     }
 
-    // 轉換函數 - JSON 到 JSON Schema
+    // Conversion function - JSON to JSON Schema
     function convertToJsonSchema(json) {
         const schema = {
             $schema: "http://json-schema.org/draft-07/schema#",
@@ -564,27 +564,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 delete schema.required;
             }
         } else if (schema.type === 'array' && json.length > 0) {
-            // 檢測陣列中的項目類型
+            // Detect item types in array
             const itemTypes = new Set(json.map(item => getType(item)));
 
             if (itemTypes.size === 1) {
-                // 陣列中的所有項目都是相同類型
+                // All items in the array are of the same type
                 const itemType = itemTypes.values().next().value;
 
                 if (itemType === 'object' && json.length > 0) {
-                    // 如果是物件陣列，嘗試找出共同屬性
+                    // If it's an object array, try to find common properties
                     schema.items = {
                         type: 'object',
                         properties: {},
                         required: []
                     };
 
-                    // 收集所有非 null 物件的屬性
+                    // Collect all non-null object's properties
                     const allProperties = new Set();
                     const validObjects = json.filter(item => item !== null && typeof item === 'object');
 
                     if (validObjects.length > 0) {
-                        // 先收集所有屬性
+                        // First collect all properties
                         validObjects.forEach(item => {
                             Object.keys(item).forEach(key => {
                                 if (item[key] !== null) {
@@ -593,9 +593,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             });
                         });
 
-                        // 然後為每個屬性建立 schema
+                        // Then create schema for each property
                         allProperties.forEach(key => {
-                            // 找到第一個包含此屬性且非 null 的值
+                            // Find the first valid item that contains this property and is not null
                             const validItem = validObjects.find(item => item[key] !== null);
                             if (validItem) {
                                 schema.items.properties[key] = getPropertySchema(validItem[key]);
@@ -604,13 +604,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
                     }
                 } else {
-                    // 對於其他類型的陣列
+                    // For other types of arrays
                     schema.items = {
                         type: itemType
                     };
                 }
             } else {
-                // 陣列中有混合類型的項目
+                // Mixed types of items in the array
                 schema.items = {};
             }
         }
@@ -618,14 +618,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return schema;
     }
 
-    // 獲取 JSON 值的類型
+    // Get JSON value type
     function getType(value) {
         if (value === null) return 'null';
         if (Array.isArray(value)) return 'array';
         return typeof value;
     }
 
-    // 獲取屬性的 schema
+    // Get property schema
     function getPropertySchema(value) {
         const type = getType(value);
         const schema = { type: type === 'null' ? 'null' : type };
@@ -666,41 +666,41 @@ document.addEventListener('DOMContentLoaded', function () {
         return schema;
     }
 
-    // 添加一些初始動畫效果
+    // Add some initial animation effects
     setTimeout(() => {
         document.querySelectorAll('.fade-in').forEach(el => {
             el.style.opacity = 1;
         });
     }, 100);
 
-    // 美化 JSON
+    // Beautify JSON
     formatButton.addEventListener('click', () => {
         formatJson();
     });
 
-    // 新增一個函數來處理 JSON 到 JSON Schema 的轉換，這樣可以在多個地方重複使用
+    // Add a function to handle JSON to JSON Schema conversion for reuse
     function convertJsonToSchema() {
         const jsonText = jsonInput.textContent.trim();
         const json = JSON.parse(jsonText);
         const schema = convertToJsonSchema(json);
 
-        // 高亮顯示結果
+        // Highlight result
         highlightJson(schema, schemaOutput);
 
-        // 啟用按鈕
+        // Enable buttons
         copyButton.disabled = false;
         downloadButton.disabled = false;
 
-        // 添加動畫效果
+        // Add animation effect
         schemaOutput.classList.add('fade-in');
         setTimeout(() => {
             schemaOutput.classList.remove('fade-in');
         }, 500);
     }
 
-    // 定義多個 JSON 範例
+    // Define multiple JSON examples
     const jsonExamples = [
-        // 範例 1: 使用者個人資料
+        // Example 1: User profile
         {
             id: "usr12345",
             firstName: "John",
@@ -727,7 +727,7 @@ document.addEventListener('DOMContentLoaded', function () {
             isActive: true,
             registrationDate: "2023-04-15T10:30:00Z"
         },
-        // 範例 2: 產品目錄項目
+        // Example 2: Product catalog item
         {
             productId: "prod-8793",
             name: "Wireless Bluetooth Headphones",
@@ -755,7 +755,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 count: 253
             }
         },
-        // 範例 3: 部落格文章
+        // Example 3: Blog post
         {
             postId: "article-4567",
             title: "10 Tips for Effective Time Management",
@@ -785,7 +785,7 @@ document.addEventListener('DOMContentLoaded', function () {
             viewCount: 1243,
             likeCount: 87
         },
-        // 範例 4: 食譜資訊
+        // Example 4: Recipe information
         {
             recipeId: "recipe-567",
             title: "Classic Chocolate Chip Cookies",
@@ -850,7 +850,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             tags: ["dessert", "baking", "cookies", "chocolate"]
         },
-        // 範例 5: 天氣資料
+        // Example 5: Weather data
         {
             location: {
                 city: "London",
@@ -922,7 +922,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     ];
 
-    // 從範例陣列中隨機選擇一個 JSON 範例並插入到編輯器中
+    // Insert a random JSON example from the examples array into the editor
     function insertRandomJsonExample() {
         const randomIndex = Math.floor(Math.random() * jsonExamples.length);
         const randomExample = jsonExamples[randomIndex];
@@ -930,6 +930,6 @@ document.addEventListener('DOMContentLoaded', function () {
         insertPlainText(formattedJson);
     }
 
-    // 初始化時插入隨機範例，而不是固定的簡單範例
+    // Insert a random example on initialization instead of a fixed simple example
     insertRandomJsonExample();
 });

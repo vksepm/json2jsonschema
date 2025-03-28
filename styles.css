@@ -50,7 +50,7 @@ body {
 .json-null { color: #ef4444; }
 .json-key { color: #f59e0b; }
 
-/* 自定義滾動條 */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -74,13 +74,13 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-/* 拖曳上傳區域樣式 */
+/* Drag and drop upload area styles */
 .drag-active {
     background-color: rgba(59, 130, 246, 0.1);
     border: 2px dashed #3b82f6 !important;
 }
 
-/* 煙火效果 */
+/* Firework effect */
 .firework {
     position: absolute;
     z-index: 999;

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW"></html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON 轉換 JSON Schema 工具</title>
+    <title>JSON to JSON Schema Converter Tool</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,13 +15,13 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center mb-4 md:mb-0">
                     <i class="fas fa-code text-3xl mr-3"></i>
-                    <h1 class="text-2xl md:text-3xl font-bold">JSON 轉換 JSON Schema 工具</h1>
+                    <h1 class="text-2xl md:text-3xl font-bold">JSON to JSON Schema Converter Tool</h1>
                 </div>
                 <div class="flex space-x-4">
                     <button id="theme-toggle" class="bg-white bg-opacity-20 hover:bg-opacity-30 transition-all-custom rounded-full p-2">
                         <i class="fas fa-moon text-lg"></i>
                     </button>
-                    <a href="https://github.com/doggy8088/json2jsonschema" target="_blank" class="bg-white bg-opacity-20 hover:bg-opacity-30 transition-all-custom rounded-full p-2">
+                    <a href="https://github.com/vksepm/json2jsonschema" target="_blank" class="bg-white bg-opacity-20 hover:bg-opacity-30 transition-all-custom rounded-full p-2">
                         <i class="fab fa-github text-lg"></i>
                     </a>
                 </div>
@@ -32,22 +32,22 @@
     <main class="container mx-auto p-4 md:p-6">
         <div class="bg-white rounded-xl shadow-xl overflow-hidden transition-all-custom hover:shadow-2xl mb-8 transform hover:-translate-y-1">
             <div class="p-6 md:p-8">
-                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">轉換你的 JSON 到 JSON Schema</h2>
-                <p class="text-gray-600 mb-6">只需貼上你的 JSON 資料，我們將自動為你生成對應的 JSON Schema。</p>
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">Convert your JSON to JSON Schema</h2>
+                <p class="text-gray-600 mb-6">Simply paste your JSON data, and we will automatically generate the corresponding JSON Schema for you.</p>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 relative">
                     <div class="relative">
                         <div class="flex justify-between items-center mb-2">
-                            <label for="json-input" class="text-gray-700 font-medium">輸入 JSON</label>
+                            <label for="json-input" class="text-gray-700 font-medium">Input JSON</label>
                             <div class="flex space-x-2">
                                 <button id="format-button" class="text-indigo-500 hover:text-indigo-700 flex items-center text-sm">
-                                    <i class="fas fa-indent mr-1"></i>美化
+                                    <i class="fas fa-indent mr-1"></i>Format
                                 </button>
                                 <button id="paste-button" class="text-blue-500 hover:text-blue-700 flex items-center text-sm">
-                                    <i class="fas fa-paste mr-1"></i>貼上
+                                    <i class="fas fa-paste mr-1"></i>Paste
                                 </button>
                                 <button id="clear-input-button" class="text-red-500 hover:text-red-700 flex items-center text-sm">
-                                    <i class="fas fa-trash-alt mr-1"></i>清除
+                                    <i class="fas fa-trash-alt mr-1"></i>Clear
                                 </button>
                             </div>
                         </div>
@@ -56,14 +56,14 @@
                             <div id="drag-overlay" class="absolute inset-0 flex items-center justify-center bg-blue-500 bg-opacity-10 border-2 border-dashed border-blue-500 rounded-lg hidden">
                                 <div class="text-center text-blue-600">
                                     <i class="fas fa-file-upload text-3xl mb-2"></i>
-                                    <p class="font-medium">拖曳 JSON 檔案到此處</p>
+                                    <p class="font-medium">Drag and drop JSON files here</p>
                                 </div>
                             </div>
                         </div>
                         <div id="input-status" class="mt-2 text-sm"></div>
                     </div>
 
-                    <!-- 轉換按鈕放置在兩個輸入框中間 -->
+                    <!-- Conversion button placed between the two input fields -->
                     <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 hidden lg:block">
                         <button id="convert-button" class="gradient-bg text-white font-medium py-3 px-3 rounded-full shadow-md hover:shadow-lg transform transition-all-custom hover:-translate-y-1 flex items-center pulse-animation">
                             <i class="fas fa-arrow-right text-xl"></i>
@@ -72,13 +72,13 @@
 
                     <div class="relative">
                         <div class="flex justify-between items-center mb-2">
-                            <label for="schema-output" class="text-gray-700 font-medium">產生的 JSON Schema</label>
+                            <label for="schema-output" class="text-gray-700 font-medium">Generated JSON Schema</label>
                             <div class="flex space-x-2">
                                 <button id="copy-button" class="text-blue-500 hover:text-blue-700 flex items-center text-sm" disabled>
-                                    <i class="fas fa-copy mr-1"></i>複製
+                                    <i class="fas fa-copy mr-1"></i>Copy
                                 </button>
                                 <button id="download-button" class="text-green-500 hover:text-green-700 flex items-center text-sm" disabled>
-                                    <i class="fas fa-download mr-1"></i>下載
+                                    <i class="fas fa-download mr-1"></i>Download
                                 </button>
                             </div>
                         </div>
@@ -87,66 +87,66 @@
                 </div>
             </div>
 
-            <!-- 顯示在移動裝置上的轉換按鈕 -->
+            <!-- Displayed on mobile devices -->
             <div id="convert-action" class="flex justify-center p-4 bg-gray-50 border-t border-gray-200 lg:hidden">
                 <button id="convert-button-mobile" class="gradient-bg text-white font-medium py-2 px-6 rounded-full shadow-md hover:shadow-lg transform transition-all-custom hover:-translate-y-1 flex items-center pulse-animation">
-                    <i class="fas fa-magic mr-2"></i>轉換
+                    <i class="fas fa-magic mr-2"></i>Convert
                 </button>
             </div>
         </div>
 
         <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">功能說明</h2>
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Features</h2>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div class="flex flex-col items-center text-center p-4 rounded-lg bg-blue-50 transition-all-custom hover:bg-blue-100">
                     <div class="rounded-full bg-blue-500 text-white p-3 mb-3">
                         <i class="fas fa-bolt text-xl"></i>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">自動檢測</h3>
-                    <p class="text-gray-600">當您貼上 JSON 內容時，系統會自動檢測並準備轉換。</p>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Auto Detection</h3>
+                    <p class="text-gray-600">When you paste JSON content, the system will automatically detect and prepare for conversion.</p>
                 </div>
 
                 <div class="flex flex-col items-center text-center p-4 rounded-lg bg-purple-50 transition-all-custom hover:bg-purple-100">
                     <div class="rounded-full bg-purple-500 text-white p-3 mb-3">
                         <i class="fas fa-code text-xl"></i>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">精確轉換</h3>
-                    <p class="text-gray-600">根據您的 JSON 資料結構，生成對應的 JSON Schema 定義。</p>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Accurate Conversion</h3>
+                    <p class="text-gray-600">Generate the corresponding JSON Schema definition based on your JSON data structure.</p>
                 </div>
 
                 <div class="flex flex-col items-center text-center p-4 rounded-lg bg-green-50 transition-all-custom hover:bg-green-100">
                     <div class="rounded-full bg-green-500 text-white p-3 mb-3">
                         <i class="fas fa-check-circle text-xl"></i>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">快速匯出</h3>
-                    <p class="text-gray-600">一鍵複製或下載生成的 JSON Schema 以供後續使用。</p>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Quick Export</h3>
+                    <p class="text-gray-600">One-click copy or download of the generated JSON Schema for further use.</p>
                 </div>
 
                 <div class="flex flex-col items-center text-center p-4 rounded-lg bg-yellow-50 transition-all-custom hover:bg-yellow-100">
                     <div class="rounded-full bg-yellow-500 text-white p-3 mb-3">
                         <i class="fas fa-file-upload text-xl"></i>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">拖曳上傳</h3>
-                    <p class="text-gray-600">直接從檔案總管拖曳 JSON 檔案到編輯區進行轉換。</p>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Drag and Drop Upload</h3>
+                    <p class="text-gray-600">Drag JSON files directly from the file explorer to the editor area for conversion.</p>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="gradient-bg text-white py-6">
+    <!-- <footer class="gradient-bg text-white py-6">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
-                <p class="mb-4 md:mb-0">Copyright © 2025 Will 保哥. All rights reserved.</p>
-                <div class="flex flex-wrap justify-center md:justify-end space-x-4">
-                    <a href="https://blog.miniasp.com/" target="_blank" class="hover:text-blue-200 transition-colors"><i class="fas fa-blog mr-1"></i>部落格</a>
-                    <a href="https://www.facebook.com/will.fans/" target="_blank" class="hover:text-blue-200 transition-colors"><i class="fab fa-facebook mr-1"></i>臉書粉絲專頁</a>
-                    <a href="https://blog.miniasp.com/contact" target="_blank" class="hover:text-blue-200 transition-colors"><i class="fas fa-envelope mr-1"></i>與我聯絡</a>
-                </div>
+                <p class="mb-4 md:mb-0">Copyright © 2025 Will. All rights reserved.</p>
+                <!-- <div class="flex flex-wrap justify-center md:justify-end space-x-4">
+                    <a href="https://blog.miniasp.com/" target="_blank" class="hover:text-blue-200 transition-colors"><i class="fas fa-blog mr-1"></i>Blog</a>
+                    <a href="https://www.facebook.com/will.fans/" target="_blank" class="hover:text-blue-200 transition-colors"><i class="fab fa-facebook mr-1"></i>Facebook Page</a>
+                    <a href="https://blog.miniasp.com/contact" target="_blank" class="hover:text-blue-200 transition-colors"><i class="fas fa-envelope mr-1"></i>Contact Me</a>
+                </div> -->
             </div>
         </div>
-    </footer>
+    </footer> -->
 
-    <!-- 通知元素 -->
+    <!-- Notification element -->
     <div id="notification" class="fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg hidden">
         <span id="notification-message"></span>
     </div>
